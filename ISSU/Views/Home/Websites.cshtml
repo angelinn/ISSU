@@ -1,0 +1,16 @@
+﻿@using ISSU.Models;
+@model System.Collections.Generic.IEnumerable<Website>
+
+@{
+    ViewBag.Title = "Websites";
+}
+
+<h2>Websites</h2>
+
+<dl class="dl-horizontal">
+    @foreach (Website site in Model)
+    {
+        <dt> @site.Title </dt>
+        <dd> <a href="@site.Url"> @site.Url </a></dd>
+    }
+</dl>
