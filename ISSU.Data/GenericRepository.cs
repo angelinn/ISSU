@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ISSU.Data
 {
-    public class GenericRepository<T> : IRepository<T> where T : class
+    public sealed class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private DbContext context;
-        private IDbSet<T> dbSet;
+        private IDbSet<TEntity> dbSet;
         public DbContext Context
         {
             get
@@ -27,7 +28,7 @@ namespace ISSU.Data
             }
         }
 
-        public IDbSet<T> DbSet 
+        public IDbSet<TEntity> DbSet 
         {
             get
             {
@@ -44,23 +45,43 @@ namespace ISSU.Data
         public GenericRepository(DbContext context)
         {
             Context = context;
-            DbSet = Context.Set<T>();
+            DbSet = Context.Set<TEntity>();
         }
 
         public GenericRepository() : this(new ISSUContext())
         {  }
 
-        public IQueryable<T> SelectAll()
+        public IEnumerable<TEntity> Select(Expression<Func<TEntity, bool>> filter = null,
+                                           Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+                                           string includeProperties = "")
+        {
+            IQueryable<TEntity> query = dbSet;
+            if (filter != null)
+                query = query.Where(filter);
+
+            string[] split = includeProperties.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string includeProperty in split)
+                query = query.Include(includeProperty);
+
+            if (orderBy != null)
+                return orderBy(query).ToList();
+
+            return query.ToList();
+
+        }
+
+        public IQueryable<TEntity> SelectAll()
         {
             return dbSet.AsQueryable();
         }
 
-        public T Select(int id)
+        public TEntity Select(int id)
         {
             return dbSet.Find(id);
         }
 
-        public void Create(T item)
+        public void Create(TEntity item)
         {
             DbEntityEntry entry = context.Entry(item);
             if (entry.State == EntityState.Detached)
@@ -69,7 +90,7 @@ namespace ISSU.Data
                 entry.State = EntityState.Added;
         }
 
-        public void Update(T item)
+        public void Update(TEntity item)
         {
             DbEntityEntry entry = context.Entry(item);
             if (entry.State == EntityState.Detached)
@@ -78,7 +99,7 @@ namespace ISSU.Data
             entry.State = EntityState.Modified;
         }
 
-        public void Delete(T item)
+        public void Delete(TEntity item)
         {
             DbEntityEntry entry = context.Entry(item);
             if (entry.State != EntityState.Deleted)
@@ -93,7 +114,7 @@ namespace ISSU.Data
 
         public void Delete(int id)
         {
-            T item = Select(id);
+            TEntity item = Select(id);
             if (item == null)
                 throw new ArgumentNullException("ID not found.");
 

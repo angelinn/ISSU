@@ -13,5 +13,6 @@ namespace ISSU.Data
     public class ISSUContext : IdentityDbContext<ApplicationUser>
     {
         public IDbSet<Website> Websites { get; set; }
+        public IDbSet<Student> Students { get; set; }
     }
 }

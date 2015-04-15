@@ -9,12 +9,17 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ISSU.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using ISSU.Data;
 
 namespace ISSU.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private const string USER_ROLE = "User";
+        private const string ADMIN_ROLE = "Admin";
+
         private ApplicationUserManager _userManager;
 
         public AccountController()
@@ -154,8 +159,17 @@ namespace ISSU.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                { 
+                    UserName = model.Email, 
+                    Email = model.Password,
+                    Student = new Student(model.Email , model.Password)
+                };
+
+                SUSIConnecter conn = new SUSIConnecter();
+                string answer = conn.Login(model.Email, model.Password);
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -166,6 +180,7 @@ namespace ISSU.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                    UserManager.AddToRole(user.Id, USER_ROLE);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
