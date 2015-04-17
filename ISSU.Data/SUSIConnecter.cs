@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ISSU.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ISSU.Data
 {
-    public class SUSIConnecter
+    public static class SUSIConnecter
     {
         private const string API_URL = @"http://susi.apphb.com/api";
         private const string LOGIN = @"/login";
@@ -19,13 +20,43 @@ namespace ISSU.Data
         private const string JSON_TYPE = "application/json";
         private const string POST_METHOD = "POST";
 
-        public string Login(string username, string password)
+        public const string PROGRAMME = "ИС(рб)";
+
+        public static async Task<string> LoginAsync(string username, string password)
         {
-            Task<WebResponse> response = CreateRequestAsync(API_URL + LOGIN, new { username = username, password = password });
-            return ReadResponse(response.Result);
+            WebResponse response;
+            try
+            {
+                response = await CreateRequestAsync(API_URL + LOGIN, new { username = username, password = password });
+            }
+            catch(WebException)
+            {
+                // return (((HttpWebResponse)e.Response).StatusCode).ToString();
+                return null;
+            }
+
+            return ReadResponse(response);
         }
 
-        private async Task<WebResponse> CreateRequestAsync(string address, object data)
+        public static async Task<Student> GetStudentInfoAsync(string authKey)
+        {
+            WebResponse response;
+
+            try
+            {
+                response = await CreateRequestAsync(API_URL + STUDENT, new { key = authKey });
+            }
+            catch (WebException)
+            {
+                // return (((HttpWebResponse)e.Response).StatusCode).ToString();
+                return null;
+            }
+
+            string json = ReadResponse(response);
+            return (Student)JsonConvert.DeserializeObject(json, typeof(Student));
+        }
+
+        private static async Task<WebResponse> CreateRequestAsync(string address, object data)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(address);
             request.ContentType = JSON_TYPE;
@@ -36,10 +67,11 @@ namespace ISSU.Data
             {
                 writer.Write(JsonConvert.SerializeObject(data));
             }
-            return (await request.GetResponseAsync());
+
+            return await request.GetResponseAsync();
         }
 
-        private string ReadResponse(WebResponse response)
+        private static string ReadResponse(WebResponse response)
         {
             string result = String.Empty;
 

@@ -1,18 +1,16 @@
-﻿using ISSU.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
+﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
+
+using ISSU.Models;
 
 namespace ISSU.Data
 {
     public class ISSUContext : IdentityDbContext<ApplicationUser>
     {
+        public ISSUContext() : base("ISSUDatabase")
+        {  }
+
         public IDbSet<Website> Websites { get; set; }
-        public IDbSet<Student> Students { get; set; }
+        public IDbSet<Course> Courses { get; set; }
     }
 }
