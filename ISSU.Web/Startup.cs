@@ -17,6 +17,7 @@ namespace ISSU.Web
         {
             ConfigureAuth(app);
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ISSUContext, Configuration>());
+            
 
             //ISSUContext con = new ISSUContext();
             //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(con));

@@ -14,6 +14,12 @@ namespace ISSU.Web.Controllers
     [Authorize(Roles="Student")]
     public class SUSIController : Controller
     {
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            GetCurrentUser();
+        }
+
         public SUSIController()
         {
             uow = new UnitOfWork();
@@ -23,40 +29,47 @@ namespace ISSU.Web.Controllers
         // GET: /SUSI/
         public ActionResult Index()
         {
-            GetCurrentUser();
+            //GetCurrentUser();
             return View();
         }
 
-
-
         public ActionResult About()
         {
-            GetCurrentUser();
+            //GetCurrentUser();
             return View(currentUser);
         }
 
         public async Task<ActionResult> Courses()
         {
-            GetCurrentUser();
-            string json = (string)await new SUSIConnecter().GetCoursesAsync(currentUser.LastAuthKey);
-            List<Course> courses = UpdateCourses(json);
-
-            return View(UpdateCourseResults(courses, currentUser, json));
+            //GetCurrentUser();
+            if(true)
+            {
+                return View(await Update());
+            }
+            return View(currentUser.CourseResults.ToList());
         }
 
-        private List<Course> UpdateCourses(string json)
+        private async Task<List<CourseResult>> Update()
         {
-            GetCurrentUser();
+            json = await new SUSIConnecter().GetCoursesAsync(currentUser.LastAuthKey);
+            List<Course> courses = UpdateCourses();
+
+            return UpdateCourseResults(courses, currentUser);
+        }
+
+        private List<Course> UpdateCourses()
+        {
             List<Course> courses = JsonConvert.DeserializeObject<List<Course>>(json);
             AddCoursesToDB(courses);
             return courses;
         }
 
-        private List<CourseResult> UpdateCourseResults(List<Course> courses, Student student, string json)
+        private List<CourseResult> UpdateCourseResults(List<Course> courses, Student student)
         {
             if (currentUser.Updated == null)
             {
                 List<CourseResult> results = JsonConvert.DeserializeObject<List<CourseResult>>(json);
+
                 Course current = null;
                 for (int i = 0; i < courses.Count; ++i)
                 {
@@ -92,5 +105,6 @@ namespace ISSU.Web.Controllers
 
         private Student currentUser;
         private UnitOfWork uow;
+        private string json;
 	}
 }

@@ -44,10 +44,15 @@ namespace ISSU.Data
             }
 
             string json = ReadResponse(response);
-            return (Student)JsonConvert.DeserializeObject(json, typeof(Student));
+            return JsonConvert.DeserializeObject<Student>(json);
         }
 
-        public async Task<object> GetCoursesAsync(string authKey)
+        public async Task DisposeKey(string authKey)
+        {
+            await CreateRequestAsync(API_URL + LOGIN, new { key = authKey });
+        }
+        
+        public async Task<string> GetCoursesAsync(string authKey)
         {
             WebResponse response;
             try
@@ -59,8 +64,7 @@ namespace ISSU.Data
                 // return (((HttpWebResponse)e.Response).StatusCode).ToString();
                 return null;
             }
-            string json = ReadResponse(response);
-            return json;
+            return ReadResponse(response);
         }
 
         private async Task<WebResponse> CreateRequestAsync(string address, object data)
