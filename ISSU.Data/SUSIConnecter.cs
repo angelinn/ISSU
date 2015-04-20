@@ -1,28 +1,19 @@
-﻿using ISSU.Models;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
+﻿using System.Configuration;
 using System.Threading.Tasks;
+using System.Net;
+using System.IO;
+using System;
+
+using ISSU.Models;
+using Newtonsoft.Json;
 
 namespace ISSU.Data
 {
-    public static class SUSIConnecter
+    public class SUSIConnecter
     {
-        private const string API_URL = @"http://susi.apphb.com/api";
-        private const string LOGIN = @"/login";
-        private const string STUDENT = @"/student";
-        private const string COURSES = @"/courses?coursesType=0";
-        private const string ROLES = @"/roles";
-        private const string JSON_TYPE = "application/json";
-        private const string POST_METHOD = "POST";
-
         public const string PROGRAMME = "ИС(рб)";
 
-        public static async Task<string> LoginAsync(string username, string password)
+        public async Task<string> LoginAsync(string username, string password)
         {
             WebResponse response;
             try
@@ -38,7 +29,7 @@ namespace ISSU.Data
             return ReadResponse(response);
         }
 
-        public static async Task<Student> GetStudentInfoAsync(string authKey)
+        public async Task<Student> GetStudentInfoAsync(string authKey)
         {
             WebResponse response;
 
@@ -56,7 +47,23 @@ namespace ISSU.Data
             return (Student)JsonConvert.DeserializeObject(json, typeof(Student));
         }
 
-        private static async Task<WebResponse> CreateRequestAsync(string address, object data)
+        public async Task<object> GetCoursesAsync(string authKey)
+        {
+            WebResponse response;
+            try
+            {
+                response = await CreateRequestAsync(API_URL + COURSES, new { key = authKey });
+            }
+            catch (WebException)
+            {
+                // return (((HttpWebResponse)e.Response).StatusCode).ToString();
+                return null;
+            }
+            string json = ReadResponse(response);
+            return json;
+        }
+
+        private async Task<WebResponse> CreateRequestAsync(string address, object data)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(address);
             request.ContentType = JSON_TYPE;
@@ -71,7 +78,7 @@ namespace ISSU.Data
             return await request.GetResponseAsync();
         }
 
-        private static string ReadResponse(WebResponse response)
+        private string ReadResponse(WebResponse response)
         {
             string result = String.Empty;
 
@@ -82,5 +89,13 @@ namespace ISSU.Data
             }
             return result;
         }
+
+        private string API_URL = ConfigurationManager.AppSettings["url"];
+        private string LOGIN = ConfigurationManager.AppSettings["login"];
+        private string STUDENT = ConfigurationManager.AppSettings["student"];
+        private string COURSES = ConfigurationManager.AppSettings["courses"];
+        private string ROLES = ConfigurationManager.AppSettings["roles"];
+        private const string JSON_TYPE = "application/json";
+        private const string POST_METHOD = "POST";
     }
 }

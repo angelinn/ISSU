@@ -11,6 +11,8 @@ namespace ISSU.Data
     {
         IGenericRepository<Student> Users { get; }
         IGenericRepository<Website> Websites { get; }
+        IGenericRepository<Course> Courses { get; }
+
         int SaveChanges();
     }
 }

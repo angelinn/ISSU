@@ -1,0 +1,25 @@
+﻿@using ISSU.Models
+@model Student
+
+@{
+    ViewBag.Title = "About";
+}
+
+<h2>About</h2>
+
+<dl class="dl-horizontal">
+    <dt>@Html.LabelFor(m => m.FacultyNumber)</dt>
+    <dd>@Model.FacultyNumber</dd>
+
+    <dt>@Html.LabelFor(m => m.Group)</dt>
+    <dd>@Model.Group</dd>
+
+    <dt>@Html.LabelFor(m => m.FirstName)</dt>
+    <dd>@Model.FirstName</dd>
+
+    <dt>@Html.LabelFor(m => m.MiddleName)</dt>
+    <dd>@Model.MiddleName</dd>
+
+    <dt>@Html.LabelFor(m => m.LastName)</dt>
+    <dd>@Model.LastName</dd>
+</dl>

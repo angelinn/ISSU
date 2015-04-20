@@ -34,6 +34,14 @@ namespace ISSU.Data
             }
         }
 
+        public IGenericRepository<Course> Courses
+        {
+            get
+            {
+                return GetRepository<Course>();
+            }
+        }
+
         public int SaveChanges()
         {
             return context.SaveChanges();

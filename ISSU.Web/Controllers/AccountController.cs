@@ -67,11 +67,12 @@ namespace ISSU.Web.Controllers
 
         private async Task<bool> Register(LoginViewModel model)
         {
-            string key = await SUSIConnecter.LoginAsync(model.UserName, model.Password);
+            SUSIConnecter connecter = new SUSIConnecter();
+            string key = await connecter.LoginAsync(model.UserName, model.Password);
 
             if (key != null)
             {
-                Student student = await SUSIConnecter.GetStudentInfoAsync(key);
+                Student student = await connecter.GetStudentInfoAsync(key);
                 if (!student.Programme.Equals(SUSIConnecter.PROGRAMME))
                     return false;
 
@@ -84,6 +85,7 @@ namespace ISSU.Web.Controllers
 
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "Student");
                     await SignInAsync(user, isPersistent: false);
                     return true;
                 }
@@ -334,11 +336,9 @@ namespace ISSU.Web.Controllers
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
 
             // Changes made for custom login
-            string key = await SUSIConnecter.LoginAsync(user.Student.Username, user.Student.Password);
-
             UnitOfWork uow = new UnitOfWork();
-            Student student = uow.Users.Where(x => x.Username.Equals(user.Student.Username)).Single();
-            student.LastAuthKey = key;
+            Student student = uow.Users.Where(x => x.Username.Equals(user.UserName)).Single();
+            student.LastAuthKey = await new SUSIConnecter().LoginAsync(student.Username, student.Password);
             uow.SaveChanges();
         }
 

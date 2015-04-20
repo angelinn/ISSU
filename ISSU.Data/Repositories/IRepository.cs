@@ -11,7 +11,6 @@ namespace ISSU.Data
     {
         IQueryable<T> SelectAll();
 
-        IEnumerable<T> Select(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string props = "");
         IQueryable<T> Where(Expression<Func<T, bool>> filter);
         T Select(int id);
         void Update(T entity);

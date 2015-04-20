@@ -5,11 +5,11 @@ namespace ISSU.Models
 {
     public class Student
     {
-        private ICollection<Course> courses;
+        private ICollection<CourseResult> courses;
 
         public Student()
         {
-            courses = new HashSet<Course>();
+            courses = new HashSet<CourseResult>();
         }
 
         public int ID { get; set; }
@@ -29,7 +29,7 @@ namespace ISSU.Models
 
         public string LastAuthKey { get; set; }
 
-        public virtual ICollection<Course> Courses 
+        public virtual ICollection<CourseResult> Courses 
         { 
             get
             {

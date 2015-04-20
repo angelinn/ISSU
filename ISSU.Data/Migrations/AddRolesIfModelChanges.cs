@@ -1,21 +1,13 @@
-using Microsoft.AspNet.Identity;
+﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Data.Entity.Migrations;
+using Microsoft.AspNet.Identity;
 
 using ISSU.Models;
 
 namespace ISSU.Data.Migrations
 {
-    public sealed class Configuration : DbMigrationsConfiguration<ISSUContext>
+    public class AddRolesIfModelChanges : DropCreateDatabaseIfModelChanges<ISSUContext>
     {
-        public Configuration()
-        {
-            AutomaticMigrationsEnabled = true;
-            ContextKey = "ISSU.Data.ISSUContext";
-
-            AutomaticMigrationDataLossAllowed = true;
-        }
-
         protected override void Seed(ISSUContext context)
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));

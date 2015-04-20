@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="list-group">
+    @Html.ActionLink("Информация за студента", "About", "SUSI", null, new { @class = "list-group-item" })
+    @Html.ActionLink("Курсове и оценки", "Courses", "SUSI", null, new { @class = "list-group-item" })
+</div>
