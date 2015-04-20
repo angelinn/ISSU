@@ -219,6 +219,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\SUSI\Index.cshtml" />
     <Content Include="Views\SUSI\About.cshtml" />
+    <Content Include="Views\SUSI\Courses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

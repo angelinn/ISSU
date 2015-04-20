@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ISSU.Models
 {
     public class Student
     {
-        private ICollection<CourseResult> courses;
+        private ICollection<CourseResult> courseResults;
 
         public Student()
         {
-            courses = new HashSet<CourseResult>();
+            courseResults = new HashSet<CourseResult>();
         }
 
         public int ID { get; set; }
@@ -27,17 +28,18 @@ namespace ISSU.Models
         public string Username { get; set; }
         public string Password { get; set; }
 
+        public DateTime? Updated { get; set; } 
         public string LastAuthKey { get; set; }
 
-        public virtual ICollection<CourseResult> Courses 
+        public virtual ICollection<CourseResult> CourseResults 
         { 
             get
             {
-                return courses;
+                return courseResults;
             }
             set
             {
-                courses = value;
+                courseResults = value;
             }
         }
     }

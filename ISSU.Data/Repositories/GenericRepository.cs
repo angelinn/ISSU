@@ -38,6 +38,7 @@ namespace ISSU.Data
                 dbSet = value;
             }
         }
+
         public GenericRepository(DbContext context)
         {
             Context = context;

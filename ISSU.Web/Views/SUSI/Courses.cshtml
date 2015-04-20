@@ -1,0 +1,16 @@
+﻿@using ISSU.Models
+@model IEnumerable<CourseResult>
+
+@{
+    ViewBag.Title = "Courses";
+}
+
+<h2>Courses</h2>
+@foreach (CourseResult result in Model)
+{
+    <dl class="dl-horizontal">
+        <dt> @result.Course.Name </dt>
+        <dd> @String.Format("Взет: {0} - Избираем {1} - Кредити: {2} - Оценка: {3}", result.IsTaken, result.IsElective, result.Credits, result.Grade) </dd>
+    </dl>
+}
+

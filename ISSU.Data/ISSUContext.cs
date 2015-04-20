@@ -12,5 +12,6 @@ namespace ISSU.Data
 
         public IDbSet<Website> Websites { get; set; }
         public IDbSet<Course> Courses { get; set; }
+        public IDbSet<CourseResult> CourseResults { get; set; }
     }
 }

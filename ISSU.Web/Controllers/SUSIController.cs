@@ -27,6 +27,8 @@ namespace ISSU.Web.Controllers
             return View();
         }
 
+
+
         public ActionResult About()
         {
             GetCurrentUser();
@@ -36,40 +38,48 @@ namespace ISSU.Web.Controllers
         public async Task<ActionResult> Courses()
         {
             GetCurrentUser();
-            await GetCourses();
+            string json = (string)await new SUSIConnecter().GetCoursesAsync(currentUser.LastAuthKey);
+            List<Course> courses = UpdateCourses(json);
 
-            return Content((string)await new SUSIConnecter().GetCoursesAsync(currentUser.LastAuthKey));
+            return View(UpdateCourseResults(courses, currentUser, json));
         }
 
-        private async Task<object> GetCourses()
+        private List<Course> UpdateCourses(string json)
         {
             GetCurrentUser();
-            string json = (string)await new SUSIConnecter().GetCoursesAsync(currentUser.LastAuthKey);
-            List<CourseResult> results = JsonConvert.DeserializeObject<List<CourseResult>>(json);
             List<Course> courses = JsonConvert.DeserializeObject<List<Course>>(json);
-
             AddCoursesToDB(courses);
-            AddCourseResults(courses, results, currentUser.ID);
-
-            return new { courses = courses, res = results };
+            return courses;
         }
 
-        private void AddCourseResults(List<Course> courses, List<CourseResult> results, int studentID)
+        private List<CourseResult> UpdateCourseResults(List<Course> courses, Student student, string json)
         {
-            for (int i = 0; i < courses.Count; ++i)
+            if (currentUser.Updated == null)
             {
-                Course fromDB = uow.Courses.Where(c => c.Name == courses[i].Name).Single();
-                results[i].CourseID = fromDB.ID;
-                results[i].StudentID = studentID;
+                List<CourseResult> results = JsonConvert.DeserializeObject<List<CourseResult>>(json);
+                Course current = null;
+                for (int i = 0; i < courses.Count; ++i)
+                {
+                    current = courses[i];
+                    Course fromDB = uow.Courses.Where(c => c.Name.Equals(current.Name)).Single();
+                    results[i].CourseID = fromDB.ID;
+                    results[i].StudentID = student.ID;
+
+                    uow.CourseResults.Create(results[i]);
+                }
+                currentUser.Updated = DateTime.Now;
+                uow.SaveChanges();
+
+                return results;
             }
-            uow.SaveChanges();
+            return currentUser.CourseResults.ToList();
         }
 
         private void AddCoursesToDB(List<Course> courses)
         {
             foreach (Course course in courses)
             {
-                if (uow.Courses.Where(c => c.Name == course.Name).SingleOrDefault() == null)
+                if (uow.Courses.Where(c => c.Name.Equals(course.Name)).SingleOrDefault() == null)
                     uow.Courses.Create(course);
             }
             uow.SaveChanges();
