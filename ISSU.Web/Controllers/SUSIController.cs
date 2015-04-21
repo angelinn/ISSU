@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 
 using ISSU.Data;
+using ISSU.Data.UnitOfWork;
 using ISSU.Models;
 using Newtonsoft.Json;
 
@@ -29,19 +30,16 @@ namespace ISSU.Web.Controllers
         // GET: /SUSI/
         public ActionResult Index()
         {
-            //GetCurrentUser();
             return View();
         }
 
         public ActionResult About()
         {
-            //GetCurrentUser();
             return View(currentUser);
         }
 
         public async Task<ActionResult> Courses()
         {
-            //GetCurrentUser();
             if(true)
             {
                 return View(await Update());

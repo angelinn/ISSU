@@ -1,11 +1,9 @@
-﻿using ISSU.Models;
+﻿using System.Collections.Generic;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ISSU.Data
+using ISSU.Models;
+
+namespace ISSU.Data.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {

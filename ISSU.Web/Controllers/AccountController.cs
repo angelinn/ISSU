@@ -12,6 +12,8 @@ using Microsoft.Owin.Security;
 using ISSU.Web.Models;
 using ISSU.Models;
 using ISSU.Data;
+using ISSU.Data.UnitOfWork;
+using ISSU.Data.Encryption;
 
 namespace ISSU.Web.Controllers
 {
@@ -77,11 +79,11 @@ namespace ISSU.Web.Controllers
                     return false;
 
                 student.Username = model.UserName;
-                student.Password = model.Password;
+                student.Password = PasswordEncrypter.Encrypt(model.Password);
                 student.LastAuthKey = key;
 
                 ApplicationUser user = new ApplicationUser() { UserName = student.Username, Student = student };
-                IdentityResult result = await UserManager.CreateAsync(user, student.Password);
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
@@ -338,7 +340,7 @@ namespace ISSU.Web.Controllers
             // Changes made for custom login
             UnitOfWork uow = new UnitOfWork();
             Student student = uow.Users.Where(x => x.Username.Equals(user.UserName)).Single();
-            student.LastAuthKey = await new SUSIConnecter().LoginAsync(student.Username, student.Password);
+            student.LastAuthKey = await new SUSIConnecter().LoginAsync(student.Username, PasswordEncrypter.Decrypt(student.Password));
             uow.SaveChanges();
         }
 
