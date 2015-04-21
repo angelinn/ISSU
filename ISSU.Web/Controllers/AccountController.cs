@@ -12,7 +12,7 @@ using Microsoft.Owin.Security;
 using ISSU.Web.Models;
 using ISSU.Models;
 using ISSU.Data;
-using ISSU.Data.UnitOfWork;
+using ISSU.Data.UoW;
 using ISSU.Data.Encryption;
 
 namespace ISSU.Web.Controllers

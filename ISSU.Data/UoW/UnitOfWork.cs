@@ -3,7 +3,7 @@ using System;
 
 using ISSU.Models;
 
-namespace ISSU.Data.UnitOfWork
+namespace ISSU.Data.UoW
 {
     public class UnitOfWork : IUnitOfWork
     {

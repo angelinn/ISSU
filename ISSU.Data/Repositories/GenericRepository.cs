@@ -48,26 +48,6 @@ namespace ISSU.Data
         public GenericRepository() : this(new ISSUContext())
         {  }
 
-        public IEnumerable<T> Select(Expression<Func<T, bool>> filter = null,
-                                           Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-                                           string includeProperties = "")
-        {
-            IQueryable<T> query = dbSet;
-            if (filter != null)
-                query = query.Where(filter);
-
-            string[] split = includeProperties.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (string includeProperty in split)
-                query = query.Include(includeProperty);
-
-            if (orderBy != null)
-                return orderBy(query).ToList(); ;
-
-            return query.ToList();
-
-        }
-
         public IQueryable<T> Where(Expression<Func<T, bool>> filter)
         {
             return dbSet.Where(filter);

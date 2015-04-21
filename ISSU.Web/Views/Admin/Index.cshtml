@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Admin Zone Index";
+}
+<hr />
+
+<div>
+    <div>
+        @Html.ActionLink("UpdateCourses()", "UpdateCourses", null, new { @class = "btn btn-primary btn-lg" })
+    </div>
+
+    <div>
+        @Html.ActionLink("UpdatePersonalInfo()", "UpdatePersonalInfo", null, new { @class = "btn btn-primary btn-lg" })
+    </div>
+
+    <div>
+        @Html.ActionLink("CreateWebsite()", "CreateWebsite", null, new { @class = "btn btn-primary btn-lg" })
+    </div>
+
+    <div>
+        @Html.ActionLink("CreateArticle()", "CreateArticle", null, new { @class = "btn btn-primary btn-lg" })
+    </div>
+
+    <div>
+        @Html.ActionLink("GetAllUsers()", "GetAllUsers", null, new { @class = "btn btn-primary btn-lg" })
+    </div>
+
+    <div>
+        @Html.ActionLink("UpdateUser()", "UpdateUser", null, new { @class = "btn btn-primary btn-lg" })
+    </div>
+
+    <div>
+        @using (@Html.BeginForm("AddRole", "Admin", FormMethod.Get, new { @class = "form-horizontal" }))
+        {
+            <div class="form-group">
+                <label> Username: </label>
+                <input class="form-control" type="text" name="roleName" />
+                <input class="btn btn-primary" type="submit" />
+            </div>
+        }
+
+        @Html.ActionLink("AddRole()", "AddRole", null, new { @class = "btn btn-primary btn-lg" })
+    </div>
+</div>

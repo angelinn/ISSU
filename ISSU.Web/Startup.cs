@@ -7,6 +7,7 @@ using ISSU.Data.Migrations;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ISSU.Models;
+using System.Web.Mvc;
 
 [assembly: OwinStartupAttribute(typeof(ISSU.Web.Startup))]
 namespace ISSU.Web
@@ -17,6 +18,8 @@ namespace ISSU.Web
         {
             ConfigureAuth(app);
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ISSUContext, Configuration>());
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new RazorViewEngine());
             
 
             //ISSUContext con = new ISSUContext();
