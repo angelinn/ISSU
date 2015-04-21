@@ -1,0 +1,63 @@
+﻿@using ISSU.Models
+@model Student
+
+@{
+    ViewBag.Title = "UpdateUser";
+}
+
+<h2>UpdateUser</h2>
+
+<div>
+    @using (Html.BeginForm("UpdateUser", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(s => s.Username);
+            @Html.EditorFor(s => s.Username, new { @readonly = "readonly" });
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(s => s.FirstName);
+            @Html.EditorFor(s => s.FirstName);
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(s => s.MiddleName);
+            @Html.EditorFor(s => s.MiddleName);
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(s => s.LastName);
+            @Html.EditorFor(s => s.LastName);
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(s => s.FacultyNumber);
+            @Html.EditorFor(s => s.FacultyNumber);
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(s => s.Group);
+            @Html.EditorFor(s => s.Group);
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(s => s.Year);
+            @Html.EditorFor(s => s.Year);
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(s => s.Programme);
+            @Html.EditorFor(s => s.Programme);
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(s => s.Updated);
+            @Html.EditorFor(s => s.Updated);
+        </div>
+        
+        <input class="btn btn-primary" type="submit" />
+    }
+
+</div>

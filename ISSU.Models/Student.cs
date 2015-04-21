@@ -42,5 +42,16 @@ namespace ISSU.Models
                 courseResults = value;
             }
         }
+
+        public static void CopyPersonalInfo(Student from, Student to)
+        {
+            to.Group = from.Group;
+            to.Year = from.Year;
+            to.FacultyNumber = from.FacultyNumber;
+            to.Programme = from.Programme;
+            to.FirstName = from.FirstName;
+            to.MiddleName = from.MiddleName;
+            to.LastName = from.LastName;
+        }
     }
 }

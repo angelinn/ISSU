@@ -17,6 +17,11 @@ namespace ISSU.Web.Controllers
     public class AdminController : Controller
     {
         private UnitOfWork uow;
+
+        public AdminController()
+        {
+            uow = new UnitOfWork();
+        }
         //
         // GET: /Admin/
         public ActionResult Index()
@@ -27,7 +32,6 @@ namespace ISSU.Web.Controllers
         // NOT TESTED
         public async Task<ActionResult> UpdateCourses(string username)
         {
-            uow = new UnitOfWork();
             Student target = uow.Users.Where(s => s.Username.Equals(username)).SingleOrDefault();
 
             if (target == null)
@@ -37,10 +41,9 @@ namespace ISSU.Web.Controllers
             return View();
         }
 
-        // NOT TESTED
+        // Tested and working. Needs View()
         public async Task<ActionResult> UpdateStudentInfo(string username)
         {
-            uow = new UnitOfWork();
             Student target = uow.Users.Where(s => s.Username.Equals(username)).SingleOrDefault();
 
             if (target == null)
@@ -48,19 +51,29 @@ namespace ISSU.Web.Controllers
 
             SUSIConnecter connecter = new SUSIConnecter();
             string key = await connecter.LoginAsync(target.Username, PasswordEncrypter.Decrypt(target.Password));
-            target = await connecter.GetStudentInfoAsync(key);
-            uow.Users.Update(target);
+            Student result = await connecter.GetStudentInfoAsync(key);
+            Student.CopyPersonalInfo(result, target);
+            uow.SaveChanges();
 
             return View();
         }
 
-        // NOT TESTED
+        public ActionResult UpdateUser(string username)
+        {
+            return View(uow.Users.Where(s => s.Username.Equals(username)).Single());
+        }
+
+        // Tested and Working.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UpdateUser(Student student)
         {
-            uow = new UnitOfWork();
-            uow.Users.Update(student);
+            Student fromDb = uow.Users.Where(s => s.Username.Equals(student.Username)).Single();
+
+            Student.CopyPersonalInfo(student, fromDb);
+            fromDb.Updated = student.Updated;
+
+            uow.SaveChanges();
 
             return View();
         }

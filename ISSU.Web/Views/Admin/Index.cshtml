@@ -10,7 +10,7 @@
     </div>
 
     <div>
-        @Html.ActionLink("UpdatePersonalInfo()", "UpdatePersonalInfo", null, new { @class = "btn btn-primary btn-lg" })
+        @Html.ActionLink("UpdatePersonalInfo()", "UpdateStudentInfo", null, new { @class = "btn btn-primary btn-lg" })
     </div>
 
     <div>
@@ -26,14 +26,22 @@
     </div>
 
     <div>
-        @Html.ActionLink("UpdateUser()", "UpdateUser", null, new { @class = "btn btn-primary btn-lg" })
+        @using (Html.BeginForm("UpdateUser", "Admin", FormMethod.Get, new { @class = "form-horizontal" }))
+        {
+            <div class="form-group">
+                <label> Username: </label>
+                <input class="form-control" type="text" name="username" />
+                <input class="btn btn-primary" type="submit" />
+            </div>
+        }
+        @Html.ActionLink("UpdateUser()", "UpdateUser", null, new { @class = "btn btn-primary" })
     </div>
 
     <div>
         @using (@Html.BeginForm("AddRole", "Admin", FormMethod.Get, new { @class = "form-horizontal" }))
         {
             <div class="form-group">
-                <label> Username: </label>
+                <label> Role name: </label>
                 <input class="form-control" type="text" name="roleName" />
                 <input class="btn btn-primary" type="submit" />
             </div>
