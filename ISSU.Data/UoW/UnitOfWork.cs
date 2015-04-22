@@ -48,6 +48,14 @@ namespace ISSU.Data.UoW
             }
         }
 
+        public IGenericRepository<Article> Articles
+        {
+            get
+            {
+                return GetRepository<Article>();
+            }
+        }
+
         public int SaveChanges()
         {
             return context.SaveChanges();

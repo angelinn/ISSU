@@ -7,9 +7,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
-using ISSU.Data.Encryption;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+
+using ISSU.Data.Encryption;
 
 namespace ISSU.Web.Controllers
 {
@@ -22,6 +23,7 @@ namespace ISSU.Web.Controllers
         {
             uow = new UnitOfWork();
         }
+
         //
         // GET: /Admin/
         public ActionResult Index()
@@ -29,7 +31,6 @@ namespace ISSU.Web.Controllers
             return View();
         }
 
-        // NOT TESTED
         public async Task<ActionResult> UpdateCourses(string username)
         {
             Student target = uow.Users.Where(s => s.Username.Equals(username)).SingleOrDefault();
@@ -38,10 +39,10 @@ namespace ISSU.Web.Controllers
                 return Content("user does not exist.");
 
             await new CourseUpdater(uow, target).UpdateAll();
-            return View();
+            return RedirectToAction("Courses", "SUSI");
         }
 
-        // Tested and working. Needs View()
+        // Tested and working. Needs View() or Ajax
         public async Task<ActionResult> UpdateStudentInfo(string username)
         {
             Student target = uow.Users.Where(s => s.Username.Equals(username)).SingleOrDefault();
@@ -63,7 +64,6 @@ namespace ISSU.Web.Controllers
             return View(uow.Users.Where(s => s.Username.Equals(username)).Single());
         }
 
-        // Tested and Working.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UpdateUser(Student student)
@@ -78,7 +78,7 @@ namespace ISSU.Web.Controllers
             return View();
         }
 
-        // Tested and works, needs View()
+        // Tested and works, needs View() or Ajax
         public ActionResult AddRole(string roleName)
         {
             RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ISSUContext()));

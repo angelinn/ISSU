@@ -8,8 +8,8 @@
 <h2> @ViewBag.Title </h2>
 <hr />
 
-<div>
-    @using (Html.BeginForm("UpdateUser", "Admin", FormMethod.Post, new { @class = "" }))
+<section>
+    @using (Html.BeginForm("UpdateUser", "Admin", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
@@ -66,4 +66,4 @@
         <input class="btn btn-primary" type="submit" />
     }
 
-</div>
+</section>

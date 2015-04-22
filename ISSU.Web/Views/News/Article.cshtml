@@ -1,0 +1,15 @@
+﻿@using ISSU.Models
+@model Article
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<h2> @ViewBag.Title </h2>
+
+<div class="article">
+    <img src="@Model.ImageUrl" /> <hr />
+    <h2>@Model.Title</h2>
+    <a href="/Categories/@Model.CategoryID">@Model.Category.Name</a>
+    <p><span class="glyphicon glyphicon-time"></span> Posted on @Model.Created by Angelin</p><hr />
+</div>

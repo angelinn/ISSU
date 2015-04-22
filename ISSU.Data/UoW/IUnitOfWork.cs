@@ -10,6 +10,7 @@ namespace ISSU.Data.UoW
         IGenericRepository<Website> Websites { get; }
         IGenericRepository<Course> Courses { get; }
         IGenericRepository<CourseResult> CourseResults { get; }
+        IGenericRepository<Article> Articles { get; }
 
         int SaveChanges();
     }
