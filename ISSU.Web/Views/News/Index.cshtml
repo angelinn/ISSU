@@ -9,10 +9,5 @@
 
 @foreach (Article article in Model)
 {
-    <div class="article">
-        <img src="@article.Image"/> <hr />
-        <h2>@article.Title</h2> 
-        <a href="/Categories/@article.CategoryID">@article.Category.Name</a>
-        <p><span class="glyphicon glyphicon-time"></span> Posted on @article.Created by Angelin</p><hr />
-    </div>
+    @Html.Partial("_ArticleSmall", article);
 }

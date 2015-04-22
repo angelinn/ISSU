@@ -91,5 +91,28 @@ namespace ISSU.Web.Controllers
         {
             return View(uow.Users.SelectAll().ToList());
         }
+
+        public ActionResult CreateArticle()
+        {
+            return View(new Article());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateArticle(Article article)
+        {
+            Student currentUser = uow.Users.Where(s => s.Username.Equals(User.Identity.Name)).Single();
+            article.StudentID = currentUser.ID;
+            article.Created = DateTime.Now;
+
+            Category c = new Category() { Name = "Бази данни" };
+            uow.Categories.Create(c);
+
+            article.CategoryID = c.ID;
+            uow.Articles.Create(article);
+            uow.SaveChanges();
+
+            return RedirectToAction("Article", "News", new { id = article.ID });
+        }
 	}
 }

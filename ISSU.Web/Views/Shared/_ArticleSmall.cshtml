@@ -1,0 +1,16 @@
+﻿@using ISSU.Models
+@model Article
+
+<h2> @Model.Title </h2>
+<p class="lead">
+    by @String.Format("{0} {1}", Model.Student.FirstName, Model.Student.LastName)
+</p>
+<p><span class="glyphicon glyphicon-time"></span> Posted on @Model.Created</p>
+
+<hr/>
+<img class="img-responsive" src="@Model.ImageUrl" />
+<hr/>
+
+<p>@Model.ShortDescription</p>
+<a class="btn btn-primary" href="/News/Article/@Model.ID"> Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+<hr/>

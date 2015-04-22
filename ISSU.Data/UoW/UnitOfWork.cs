@@ -56,6 +56,14 @@ namespace ISSU.Data.UoW
             }
         }
 
+        public IGenericRepository<Category> Categories 
+        { 
+            get
+            {
+                return GetRepository<Category>();
+            }
+        }
+
         public int SaveChanges()
         {
             return context.SaveChanges();
