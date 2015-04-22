@@ -1,0 +1,16 @@
+﻿@using ISSU.Models
+@model IEnumerable<Student>
+
+@{
+    ViewBag.Title = "Всички потребители";
+}
+
+<h2> @ViewBag.Title </h2>
+
+@foreach (Student student in Model)
+{ 
+    <dl class="dl-horizontal">
+        <dt> @String.Format("[{0}] {1}", student.FacultyNumber, student.Username) </dt>
+        <dd> @String.Format("{0} {1}", student.FirstName, student.LastName)</dd>
+    </dl>
+}

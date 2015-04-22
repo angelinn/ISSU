@@ -40,7 +40,8 @@ namespace ISSU.Web.Controllers
 
         public async Task<ActionResult> Courses()
         {
-            if(currentUser.Updated == null)
+            //if(currentUser.CoursesUpdated == null)
+            if (true)
             {
                 CourseUpdater updater = new CourseUpdater(uow, currentUser);
 

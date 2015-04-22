@@ -4,6 +4,9 @@ using System.Security.Cryptography;
 
 namespace ISSU.Data.Encryption
 {
+    // IMPORTANT
+    // Encryption will work only to and from this particular local machine
+    // If Published, another encryption method must be applied
     public static class PasswordEncrypter
     {
         public static string Encrypt(string plainText)

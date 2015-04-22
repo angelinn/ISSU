@@ -71,7 +71,7 @@ namespace ISSU.Web.Controllers
             Student fromDb = uow.Users.Where(s => s.Username.Equals(student.Username)).Single();
 
             Student.CopyPersonalInfo(student, fromDb);
-            fromDb.Updated = student.Updated;
+            fromDb.AuthKeyUpdated = student.AuthKeyUpdated;
 
             uow.SaveChanges();
 
@@ -85,6 +85,11 @@ namespace ISSU.Web.Controllers
             roleManager.Create(new IdentityRole(roleName));
 
             return View();
+        }
+
+        public ActionResult AllUsers()
+        {
+            return View(uow.Users.SelectAll().ToList());
         }
 	}
 }

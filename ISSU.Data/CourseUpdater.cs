@@ -55,7 +55,7 @@ namespace ISSU.Data
                 results[i].StudentID = currentUser.ID;
                 uow.CourseResults.Create(results[i]);
             }
-            currentUser.Updated = DateTime.Now;
+            currentUser.AuthKeyUpdated = DateTime.Now;
             uow.SaveChanges();
 
             return results;
@@ -63,7 +63,7 @@ namespace ISSU.Data
 
         private async Task ParseCoursesAsync()
         {
-            json = await new SUSIConnecter().GetCoursesAsync(currentUser.LastAuthKey);
+            json = await new SUSIConnecter().GetCoursesAsync(currentUser.LastAuthKey, currentUser);
             courses = JsonConvert.DeserializeObject<List<Course>>(json);
         }
 

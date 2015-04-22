@@ -28,8 +28,10 @@ namespace ISSU.Models
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public DateTime? Updated { get; set; } 
+        public DateTime? AuthKeyUpdated { get; set; }
         public string LastAuthKey { get; set; }
+
+        public DateTime? CoursesUpdated { get; set; }
 
         public virtual ICollection<CourseResult> CourseResults 
         { 
