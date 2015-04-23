@@ -87,6 +87,14 @@ namespace ISSU.Web.Controllers
             return View();
         }
 
+        public ActionResult AddCategory(string categoryName)
+        {
+            uow.Categories.Create(new Category() { Name = categoryName });
+            uow.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         public ActionResult AllUsers()
         {
             return View(uow.Users.SelectAll().ToList());
@@ -94,25 +102,50 @@ namespace ISSU.Web.Controllers
 
         public ActionResult CreateArticle()
         {
+            List<Category> categories = uow.Categories.SelectAll().ToList();
+            List<SelectListItem> result = new List<SelectListItem>();
+
+            foreach (Category category in categories)
+            {
+                result.Add(new SelectListItem()
+                {
+                    Text = category.Name,
+                    Value = category.Name
+                });
+            }
+
+            ViewBag.Categories = result;
             return View(new Article());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateArticle(Article article)
+        public ActionResult CreateArticle(Article article, string category)
         {
             Student currentUser = uow.Users.Where(s => s.Username.Equals(User.Identity.Name)).Single();
             article.StudentID = currentUser.ID;
             article.Created = DateTime.Now;
 
-            Category c = new Category() { Name = "Бази данни" };
-            uow.Categories.Create(c);
-
-            article.CategoryID = c.ID;
+            article.CategoryID = uow.Categories.Where(c => c.Name.Equals(category)).Single().ID;
             uow.Articles.Create(article);
             uow.SaveChanges();
 
             return RedirectToAction("Article", "News", new { id = article.ID });
+        }
+
+        public ActionResult CreateWebsite()
+        {
+            return View(new Website());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateWebsite(Website website)
+        {
+            uow.Websites.Create(website);
+            uow.SaveChanges();
+
+            return RedirectToAction("Websites", "Home");
         }
 	}
 }

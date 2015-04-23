@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-success" />
+                        <button id="loginButton" type="submit" class="btn btn-success"> Влизане </button>
                     </div>
                 </div>
             }
@@ -49,4 +49,9 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $("#loginButton").click(function () {
+            $("#loginButton").html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Влизане');
+        });
+    </script>
 }

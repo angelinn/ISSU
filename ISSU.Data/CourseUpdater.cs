@@ -55,7 +55,7 @@ namespace ISSU.Data
                 results[i].StudentID = currentUser.ID;
                 uow.CourseResults.Create(results[i]);
             }
-            currentUser.AuthKeyUpdated = DateTime.Now;
+            currentUser.CoursesUpdated = DateTime.Now;
             uow.SaveChanges();
 
             return results;

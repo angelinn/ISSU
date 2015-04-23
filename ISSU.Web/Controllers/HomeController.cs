@@ -13,13 +13,16 @@ namespace ISSU.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            List<Article> firstFew = new UnitOfWork().Articles
+                    .Where(a => a.ID < ARTICLES_PER_PAGE)
+                    .ToList();
+
+            firstFew.Sort((a, b) => b.Created.Value.CompareTo(a.Created.Value));
+            return View(firstFew);
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
@@ -28,5 +31,7 @@ namespace ISSU.Web.Controllers
             IEnumerable<Website> sites = new UnitOfWork().Websites.SelectAll().ToList();
             return View(sites);
         }
+
+        private const int ARTICLES_PER_PAGE = 4;
     }
 }

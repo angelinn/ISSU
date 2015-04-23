@@ -33,7 +33,7 @@
     
     <div class="form-group">
         @Html.LabelFor(m => m.Category)
-        @Html.TextBoxFor(m => m.Category, new { @class = "form-control" })
+        @Html.DropDownListFor(m => m.Category, (IEnumerable<SelectListItem>)ViewBag.Categories, new { @class = "form-control" })
     </div>
     
     <input class="btn btn-primary" type="submit" value="Create" />
