@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                    <div id="innerLoginDiv" class="col-md-offset-2 col-md-10">
                         <button id="loginButton" type="submit" class="btn btn-success"> Влизане </button>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
         $("#loginButton").click(function () {
-            $("#loginButton").html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Влизане');
+            $("#innerLoginDiv").append('<img src="/Content/images/loading.gif"/>');
         });
     </script>
 }

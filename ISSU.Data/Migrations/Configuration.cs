@@ -19,8 +19,8 @@ namespace ISSU.Data.Migrations
 
         protected override void Seed(ISSUContext context)
         {
-            AddRoles(context);
-            AddWebsites(context);
+             AddRoles(context);
+             AddWebsites(context);
         }
 
         private void AddRoles(ISSUContext context)
