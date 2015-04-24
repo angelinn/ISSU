@@ -28,7 +28,7 @@
                     <li>@Html.ActionLink("Линкове", "Websites", "Home")</li>
                     <li>@Html.ActionLink("Контакти", "Contact", "Home")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @Html.Action("LoginPartial", "Account")
                 @Html.Partial("_Admin")
             </div>
         </div>

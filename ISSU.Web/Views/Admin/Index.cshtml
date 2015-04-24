@@ -5,44 +5,54 @@
 <hr />
 
 <div>
-    @Html.ActionLink("Create Website", "CreateWebsite", null, new { @class = "btn btn-primary btn-lg" })
-    @Html.ActionLink("Create Article", "CreateArticle", null, new { @class = "btn btn-primary btn-lg" })
-    @Html.ActionLink("Get All Users", "AllUsers", null, new { @class = "btn btn-primary btn-lg" })
-    <hr/>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Create Website >>", "CreateWebsite", null, new { @class = "btn btn-primary btn-lg" })
+        </div>
 
-    <div>
-        @using (Html.BeginForm("UpdateCourses", "Admin", FormMethod.Get))
-        {
-            <div class="form-group">
-                <label> Username: </label>
-                <input class="form-control" type="text" name="username" />
-            </div>
-            <input class="btn btn-primary" type="submit" value="Force Update Courses" />
-        }
+        <div class="col-md-4">
+            @Html.ActionLink("Create Article >>", "CreateArticle", null, new { @class = "btn btn-primary btn-lg" })
+        </div>
+
+        <div class="col-md-4">
+            @Html.ActionLink("Get All Users >>", "AllUsers", null, new { @class = "btn btn-primary btn-lg" })
+        </div>
     </div>
     <hr/>
 
-    <div>        
-        @using (Html.BeginForm("UpdateStudentInfo", "Admin", FormMethod.Get))
-        {
-            <div class="form-group">
-                <label> Username: </label>
-                <input class="form-control" type="text" name="username" />
-            </div>
-            <input class="btn btn-primary" type="submit" value="Force Update Student Info" />
-        }
-    </div>
-    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            @using (Html.BeginForm("UpdateCourses", "Admin", FormMethod.Get))
+            {
+                <div class="form-group">
+                    <label> Username: </label>
+                    <input class="form-control" type="text" name="username" />
+                </div>
+                <input class="btn btn-primary" type="submit" value="Force Update Courses" />
+            }
+        </div>
 
-    <div>
-        @using (Html.BeginForm("UpdateUser", "Admin", FormMethod.Get))
-        {
-            <div class="form-group">
-                <label> Username: </label>
-                <input class="form-control" type="text" name="username" />
-            </div>
-            <input class="btn btn-primary" type="submit" value="Update User" />
-        }
+        <div class="col-md-4">
+            @using (Html.BeginForm("UpdateStudentInfo", "Admin", FormMethod.Get))
+            {
+                <div class="form-group">
+                    <label> Username: </label>
+                    <input class="form-control" type="text" name="username" />
+                </div>
+                <input class="btn btn-primary" type="submit" value="Force Update Student Info" />
+            }
+        </div>
+
+        <div class="col-md-4">
+            @using (Html.BeginForm("UpdateUser", "Admin", FormMethod.Get))
+            {
+                <div class="form-group">
+                    <label> Username: </label>
+                    <input class="form-control" type="text" name="username" />
+                </div>
+                <input class="btn btn-primary" type="submit" value="Update User" />
+            }
+        </div>
     </div>
     <hr />
 

@@ -41,6 +41,17 @@ namespace ISSU.Web.Controllers
             return View();
         }
 
+        [ChildActionOnly]
+        [AllowAnonymous]
+        public ActionResult LoginPartial()
+        {
+            Student student = new UnitOfWork().Users
+                        .Where(s => s.Username.Equals(User.Identity.Name))
+                        .SingleOrDefault();
+
+            return PartialView("_LoginPartial", student ?? new Student());
+        }
+
         //
         // POST: /Account/Login
         [HttpPost]

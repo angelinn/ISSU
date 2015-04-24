@@ -1,13 +1,20 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ISSU.Models
 {
     public class Article
     {
         public int ID { get; set; }
+
+        [Required]
+        [StringLength(60)]
         public string Title { get; set; }
         public string ImageUrl { get; set; }
         public string Content { get; set; }
+
+        [Required]
+        [StringLength(100)]
         public string ShortDescription { get; set; }
         public DateTime? Created { get; set; }
 
