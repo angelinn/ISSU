@@ -13,7 +13,7 @@ namespace ISSU.Models
         public string ImageUrl { get; set; }
         public string Content { get; set; }
 
-        [Required]
+        [Required(ErrorMessage="Полето е задължително")]
         [StringLength(100)]
         public string ShortDescription { get; set; }
         public DateTime? Created { get; set; }

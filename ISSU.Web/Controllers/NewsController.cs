@@ -18,16 +18,20 @@ namespace ISSU.Web.Controllers
 
         //
         // GET: /News/
-        public ActionResult Index(string page)
+        public ActionResult Index(string id)
         {
             int pageNumber = 1;
 
-            if (!String.IsNullOrEmpty(page))
-                pageNumber = Convert.ToInt32(page);
+            if (!String.IsNullOrEmpty(id))
+                pageNumber = Convert.ToInt32(id);
 
             List<Article> firstFew = uow.Articles
-                        .Where(a => a.ID < (pageNumber * ARTICLES_PER_PAGE))
+                        .Where(a => a.ID >= ((pageNumber - 1) * ARTICLES_PER_PAGE) 
+                            && a.ID < (pageNumber * ARTICLES_PER_PAGE))
                         .ToList();
+
+            ViewBag.PagesCount = GetNumberOfPages(uow.Articles.SelectAll().Count());
+            ViewBag.CurrentPage = pageNumber;
 
             return View(firstFew);
         }

@@ -2,24 +2,36 @@
 @model Student
 
 @{
-    ViewBag.Title = "About";
+    ViewBag.Title = "За мен";
 }
 
-<h2>About</h2>
+<hr/>
 
-<dl class="dl-horizontal">
-    <dt>@Html.LabelFor(m => m.FacultyNumber)</dt>
-    <dd>@Model.FacultyNumber</dd>
+<table class="table table-striped table-condensed">
+    <tbody>
+        <tr>
+            <td class="col-md-3"><label> Име: </label></td>
+            <td> @String.Format("{0} {1} {2}", Model.FirstName, Model.MiddleName, Model.LastName) </td>
+        </tr>
 
-    <dt>@Html.LabelFor(m => m.Group)</dt>
-    <dd>@Model.Group</dd>
+        <tr>
+            <td class="col-md-3"><label> Факултетен номер: </label></td>
+            <td> @Model.FacultyNumber </td>
+        </tr>
 
-    <dt>@Html.LabelFor(m => m.FirstName)</dt>
-    <dd>@Model.FirstName</dd>
+        <tr>
+            <td class="col-md-3"><label> Специалност: </label></td>
+            <td> @Model.Programme </td>
+        </tr>
 
-    <dt>@Html.LabelFor(m => m.MiddleName)</dt>
-    <dd>@Model.MiddleName</dd>
+        <tr>
+            <td class="col-md-3"><label> Административна група: </label></td>
+            <td> #@Model.Group </td>
+        </tr>
 
-    <dt>@Html.LabelFor(m => m.LastName)</dt>
-    <dd>@Model.LastName</dd>
-</dl>
+        <tr>
+            <td class="col-md-3"><label> Година: </label></td>
+            <td> @Model.Year </td>
+        </tr>
+    </tbody>
+</table>

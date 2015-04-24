@@ -2,12 +2,29 @@
 @model IEnumerable<Article>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Всички новини";
 }
 
-<h2>Index</h2>
 
 @foreach (Article article in Model)
 {
     @Html.Partial("_ArticleSmall", article);
+}
+
+@if (ViewBag.CurrentPage >= ViewBag.PagesCount || ViewBag.CurrentPage <= 1)
+{
+    <div class="row">
+        <div class="col-md-offset-5">
+            <button class="btn btn-primary btn-sm disabled"> Няма повече страници </button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-offset-5">
+            @Html.ActionLink("< Предишна", "Index", new { id = ViewBag.CurrentPage - 1 }, new { @class = "btn btn-primary btn-sm" })
+            @Html.ActionLink("Следваща >", "Index", new { id = ViewBag.CurrentPage + 1 }, new { @class = "btn btn-primary btn-sm" })
+        </div>
+    </div>
 }
