@@ -25,19 +25,17 @@ namespace ISSU.Web.Controllers
             uow = new UnitOfWork();
         }
 
-        //
-        // GET: /SUSI/
-        public ActionResult Index()
+        public PartialViewResult SUSIPartial()
         {
-            return View();
+            return PartialView("_SUSI");
         }
 
-        public ActionResult About()
+        public ActionResult AboutPartial()
         {
             return View(currentUser);
         }
 
-        public async Task<ActionResult> Courses()
+        public async Task<ActionResult> CoursesPartial()
         {
             if(currentUser.CoursesUpdated == null)
             {

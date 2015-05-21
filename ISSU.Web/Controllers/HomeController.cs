@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ISSU.Web.Controllers
 {
-    [Authorize(Roles="Student, Admin")]
+    //[Authorize(Roles="Student, Admin")]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -16,14 +16,9 @@ namespace ISSU.Web.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public PartialViewResult ContactPartial()
         {
-            return View();
-        }
-
-        public ActionResult Websites()
-        {
-            return View();
+            return PartialView("_Contact");
         }
 
         public PartialViewResult IndexPartial()
@@ -35,7 +30,5 @@ namespace ISSU.Web.Controllers
         {
             return PartialView("_Websites");
         }
-
-        private const int ARTICLES_PER_PAGE = 4;
     }
 }

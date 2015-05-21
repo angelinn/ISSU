@@ -8,6 +8,7 @@ var susiApp;
             HomeRoutes.configureRoutes = function ($routeProvider) {
                 $routeProvider.when('/latest', { controller: 'susiApp.Controllers.HomeController', controllerAs: 'home', templateUrl: '/Home/IndexPartial' });
                 $routeProvider.when('/websites', { controller: 'susiApp.Controllers.HomeController', controllerAs: 'home', templateUrl: '/Home/WebsitesPartial' });
+                $routeProvider.when('/contact', { controller: 'susiApp.Controllers.HomeController', controllerAs: 'home', templateUrl: '/Home/ContactPartial' });
                 $routeProvider.otherwise({ redirectTo: '/latest' });
             };
             HomeRoutes.$inject = ['$routeProvider'];
@@ -25,6 +26,18 @@ var susiApp;
             return NewsRoutes;
         })();
         Routes.NewsRoutes = NewsRoutes;
+        var SUSIRoutes = (function () {
+            function SUSIRoutes() {
+            }
+            SUSIRoutes.configureRoutes = function ($routeProvider) {
+                $routeProvider.when('/susi', { controller: 'susiApp.Controllers.SUSIController', controllerAs: 'susi', templateUrl: '/SUSI/SUSIPartial' });
+                $routeProvider.when('/student/about', { controller: 'susiApp.Controllers.SUSIController', controllerAs: 'susi', templateUrl: '/SUSI/AboutPartial' });
+                $routeProvider.when('/student/courses', { controller: 'susiApp.Controllers.SUSIController', controllerAs: 'susi', templateUrl: '/SUSI/CourseSPartial' });
+            };
+            SUSIRoutes.$inject = ['routeProvider'];
+            return SUSIRoutes;
+        })();
+        Routes.SUSIRoutes = SUSIRoutes;
     })(Routes = susiApp.Routes || (susiApp.Routes = {}));
 })(susiApp || (susiApp = {}));
 //# sourceMappingURL=susiApp.routes.js.map

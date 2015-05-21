@@ -1013,7 +1013,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\_Contact.cshtml" />
     <Content Include="Scripts\core\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -1025,9 +1025,9 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\SUSI\Index.cshtml" />
-    <Content Include="Views\SUSI\About.cshtml" />
-    <Content Include="Views\SUSI\Courses.cshtml" />
+    <Content Include="Views\SUSI\_SUSI.cshtml" />
+    <Content Include="Views\SUSI\_About.cshtml" />
+    <Content Include="Views\SUSI\_Courses.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\UpdateUser.cshtml" />
     <Content Include="Views\Shared\_Admin.cshtml" />
