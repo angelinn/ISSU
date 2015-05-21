@@ -29,22 +29,6 @@ namespace ISSU.Data
 
             return ReadResponse(response);
         }
-
-        public string Login(string username, string password)
-        {
-            WebResponse response;
-            try
-            {
-                response = CreateRequest(API_URL + LOGIN, new { username = username, password = password });
-            }
-            catch (WebException)
-            {
-                // return (((HttpWebResponse)e.Response).StatusCode).ToString();
-                return null;
-            }
-
-            return ReadResponse(response);
-        }
         
         public async Task<Student> GetStudentInfoAsync(string authKey, Student student = null)
         {
@@ -69,23 +53,7 @@ namespace ISSU.Data
         {
             await CreateRequestAsync(API_URL + LOGIN, new { key = authKey });
         }
-
-        public string GetCourses(string authKey, Student student = null)
-        {
-            RefreshKeyIfNeeded(student);
-            WebResponse response;
-            try
-            {
-                response = CreateRequest(API_URL + COURSES, new { key = authKey });
-            }
-            catch (WebException)
-            {
-                // return (((HttpWebResponse)e.Response).StatusCode).ToString();
-                return null;
-            }
-            return ReadResponse(response);
-        }
-
+        
         public async Task<string> GetCoursesAsync(string authKey, Student student = null)
         {
             await RefreshKeyIfNeededAsync(student);
@@ -117,21 +85,6 @@ namespace ISSU.Data
             return await request.GetResponseAsync();
         }
 
-        private WebResponse CreateRequest(string address, object data)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(address);
-            request.ContentType = JSON_TYPE;
-            request.Method = POST_METHOD;
-
-            using (Stream requestStream = request.GetRequestStream())
-            using (StreamWriter writer = new StreamWriter(requestStream))
-            {
-                writer.Write(JsonConvert.SerializeObject(data));
-            }
-
-            return request.GetResponse();
-        }
-
         private string ReadResponse(WebResponse response)
         {
             string result = String.Empty;
@@ -159,26 +112,6 @@ namespace ISSU.Data
                 if (difference >= EXPIRATION_MINUTES)
                 {
                     student.LastAuthKey = await LoginAsync(student.Username, PasswordEncrypter.Decrypt(student.Password));
-                    student.AuthKeyUpdated = DateTime.Now;
-                }
-            }
-        }
-
-        private void RefreshKeyIfNeeded(Student student)
-        {
-            if (student == null)
-                return;
-            if (student.AuthKeyUpdated == null)
-            {
-                student.LastAuthKey = Login(student.Username, PasswordEncrypter.Decrypt(student.Password));
-                student.AuthKeyUpdated = DateTime.Now;
-            }
-            else
-            {
-                int difference = ((TimeSpan)(DateTime.Now - student.AuthKeyUpdated)).Minutes;
-                if (difference >= EXPIRATION_MINUTES)
-                {
-                    student.LastAuthKey = Login(student.Username, PasswordEncrypter.Decrypt(student.Password));
                     student.AuthKeyUpdated = DateTime.Now;
                 }
             }
