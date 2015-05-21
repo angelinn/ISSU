@@ -1,6 +1,6 @@
 # ISSU
 
-Based on ASP.NET MVC 5
+Based on ~~ASP.NET MVC 5~~ AngularJS, with ASP.NET as base.
 
 Not RTM
 
