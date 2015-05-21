@@ -1,0 +1,24 @@
+﻿<div ng-controller="susiApp.Controllers.NewsController" ng-repeat="article in articles">
+    <h2> {{ article.Title }} </h2>
+
+    <p class="lead">
+        от Someone @*@String.Format("{0} {1}", Model.Student.FirstName, Model.Student.LastName)*@
+    </p>
+
+    <a ng-href="/Categories/{{ article.CategoryID }}">
+        <div class="badge">
+            Category Name
+        </div>
+    </a>
+    <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.Create }}</p>
+
+    <hr />
+    <a ng-href="/News/Article/{{ article.ID }}">
+        <img class="img-responsive" ng-src="{{ article.ImageUrl }}" width="50%" />
+    </a>
+    <hr />
+
+    <p>{{ article.ShortDescription }}</p>
+    <a class="btn btn-primary" ng-href="/News/Article/{{ article.ID }}"> Повече <span class="glyphicon glyphicon-chevron-right"></span></a>
+    <hr />
+</div>

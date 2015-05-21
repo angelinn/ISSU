@@ -1,0 +1,33 @@
+﻿<div class="jumbotron">
+    <h4> Летен Семестър 2015 ! </h4>
+    <img src="/Content/images/schedule.jpg" class="img-rounded img-responsive" />
+</div>
+
+<div ng-controller="susiApp.Controllers.HomeController">
+    <h2 ng-hide="articles"> Няма новини. </h2>
+    <hr ng-show="articles" />
+
+    <div ng-repeat="article in articles">
+        <h2> {{ article.Title }} </h2>
+        <p class="lead">
+            от nz
+        </p>
+
+        <a ng-href="/Categories/{{ article.CategoryID }}">
+            <div class="badge">
+                hue
+            </div>
+        </a>
+        <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.Created }}</p>
+
+        <hr />
+        <a ng-href="/News/Article/{{ article.ID }}">
+            <img class="img-responsive" ng-src="{{ article.ImageUrl }}" width="50%" />
+        </a>
+        <hr />
+
+        <p>{{ article.ShortDescription }}</p>
+        <a class="btn btn-primary" ng-href="/News/Article/{{ article.ID }}"> Повече <span class="glyphicon glyphicon-chevron-right"></span></a>
+        <hr />
+    </div>
+</div>

@@ -13,12 +13,7 @@ namespace ISSU.Web.Controllers
     {
         public ActionResult Index()
         {
-            List<Article> firstFew = new UnitOfWork().Articles
-                    .Where(a => a.ID < ARTICLES_PER_PAGE)
-                    .ToList();
-
-            firstFew.Sort((a, b) => b.Created.Value.CompareTo(a.Created.Value));
-            return View(firstFew);
+            return View();
         }
 
         public ActionResult Contact()
@@ -28,8 +23,17 @@ namespace ISSU.Web.Controllers
 
         public ActionResult Websites()
         {
-            IEnumerable<Website> sites = new UnitOfWork().Websites.SelectAll().ToList();
-            return View(sites);
+            return View();
+        }
+
+        public PartialViewResult IndexPartial()
+        {
+            return PartialView("_Index");
+        }
+
+        public PartialViewResult WebsitesPartial()
+        {
+            return PartialView("_Websites");
         }
 
         private const int ARTICLES_PER_PAGE = 4;

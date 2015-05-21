@@ -12,7 +12,6 @@ using Newtonsoft.Json;
 
 namespace ISSU.Web.Controllers
 {
-    [Authorize(Roles="Student, Admin")]
     public class SUSIController : Controller
     {
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)

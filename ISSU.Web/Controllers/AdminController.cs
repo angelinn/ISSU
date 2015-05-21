@@ -50,6 +50,7 @@ namespace ISSU.Web.Controllers
             if (target == null)
                 return Content("user does not exist.");
 
+            
             SUSIConnecter connecter = new SUSIConnecter();
             string key = await connecter.LoginAsync(target.Username, PasswordEncrypter.Decrypt(target.Password));
             Student result = await connecter.GetStudentInfoAsync(key);

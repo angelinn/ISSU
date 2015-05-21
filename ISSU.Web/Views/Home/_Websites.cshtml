@@ -1,0 +1,6 @@
+﻿<div ng-controller="susiApp.Controllers.HomeController">
+    <dl ng-repeat="website in websites">
+        <dt> {{ website.ID }}, {{ website.Title }} </dt>
+        <dd><a ng-href="{{ website.Url }}"> {{ website.Url }} </a></dd>
+    </dl>
+</div>

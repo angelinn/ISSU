@@ -1,15 +1,11 @@
-﻿@using ISSU.Models
-@model IEnumerable<Article>
-
-@{
+﻿@{
     ViewBag.Title = "Всички новини";
 }
 
+<div ng-view>
 
-@foreach (Article article in Model)
-{
-    @Html.Partial("_ArticleSmall", article);
-}
+
+</div>
 
 @if (ViewBag.CurrentPage >= ViewBag.PagesCount || ViewBag.CurrentPage <= 1)
 {
@@ -27,4 +23,12 @@ else
             @Html.ActionLink("Следваща >", "Index", new { id = ViewBag.CurrentPage + 1 }, new { @class = "btn btn-primary btn-sm" })
         </div>
     </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/susiApp")
+    <script>
+        angular.module('susiApp')
+            .config(susiApp.Routes.NewsRoutes.configureRoutes);
+    </script>
 }
