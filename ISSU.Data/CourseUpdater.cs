@@ -39,6 +39,19 @@ namespace ISSU.Data
             uow.SaveChanges();
         }
 
+        public void UpdateCourses()
+        {
+            if (json == null)
+                ParseCourses();
+
+            foreach (Course course in courses)
+            {
+                if (uow.Courses.Where(c => c.Name.Equals(course.Name)).SingleOrDefault() == null)
+                    uow.Courses.Create(course);
+            }
+            uow.SaveChanges();
+        }
+
         public async Task<List<CourseResult>> UpdateCourseResultsAsync()
         {
             if (json == null)
@@ -61,9 +74,37 @@ namespace ISSU.Data
             return results;
         }
 
+        public List<CourseResult> UpdateCourseResults()
+        {
+            if (json == null)
+                ParseCourses();
+
+            List<CourseResult> results = JsonConvert.DeserializeObject<List<CourseResult>>(json);
+
+            Course current = null;
+            for (int i = 0; i < courses.Count; ++i)
+            {
+                current = courses[i];
+                Course fromDB = uow.Courses.Where(c => c.Name.Equals(current.Name)).Single();
+                results[i].CourseID = fromDB.ID;
+                results[i].StudentID = currentUser.ID;
+                uow.CourseResults.Create(results[i]);
+            }
+            currentUser.CoursesUpdated = DateTime.Now;
+            uow.SaveChanges();
+
+            return results;
+        }
+
         private async Task ParseCoursesAsync()
         {
             json = await new SUSIConnecter().GetCoursesAsync(currentUser.LastAuthKey, currentUser);
+            courses = JsonConvert.DeserializeObject<List<Course>>(json);
+        }
+
+        private void ParseCourses()
+        {
+            json = new SUSIConnecter().GetCourses(currentUser.LastAuthKey, currentUser);
             courses = JsonConvert.DeserializeObject<List<Course>>(json);
         }
 

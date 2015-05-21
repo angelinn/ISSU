@@ -5,35 +5,45 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
+using ISSU.Data.UoW;
+using ISSU.Models;
+using ISSU.Data;
+using System.Threading.Tasks;
+
 namespace ISSU.Web.Areas.API.Controllers
 {
     public class SUSIController : ApiController
     {
-        // GET api/susi
-        public IEnumerable<string> Get()
+        public SUSIController()
         {
-            return new string[] { "value1", "value2" };
+            uow = new UnitOfWork();
+            GetCurrentUser();
         }
 
-        // GET api/susi/5
-        public string Get(int id)
+        public HttpResponseMessage Get()
         {
-            return "value";
+            Student user = uow.Users.Where(s => s.Username.Equals(User.Identity.Name)).SingleOrDefault();
+            return Request.CreateResponse(HttpStatusCode.OK, new { FirstName = user.FirstName, LastName = user.LastName, MiddleName = user.MiddleName, Group = user.Group, FacultyNumber = user.FacultyNumber });
         }
 
-        // POST api/susi
-        public void Post([FromBody]string value)
+        public async Task<HttpResponseMessage> Get(string courses)
         {
+            if (currentUser.CoursesUpdated == null)
+            {
+                CourseUpdater updater = new CourseUpdater(uow, currentUser);
+
+                await updater.UpdateCoursesAsync();
+                return Request.CreateResponse(HttpStatusCode.OK, await updater.UpdateCourseResultsAsync());
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, currentUser.CourseResults.ToList());
         }
 
-        // PUT api/susi/5
-        public void Put(int id, [FromBody]string value)
+        private void GetCurrentUser()
         {
+            currentUser = uow.Users.Where(s => s.Username.Equals(User.Identity.Name)).SingleOrDefault();
         }
 
-        // DELETE api/susi/5
-        public void Delete(int id)
-        {
-        }
+        private Student currentUser;
+        private UnitOfWork uow;
     }
 }

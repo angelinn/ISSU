@@ -6,6 +6,7 @@
             $routeProvider.when('/latest', { controller: 'susiApp.Controllers.HomeController', controllerAs: 'home', templateUrl: '/Home/IndexPartial' });
             $routeProvider.when('/websites', { controller: 'susiApp.Controllers.HomeController', controllerAs: 'home', templateUrl: '/Home/WebsitesPartial' });
             $routeProvider.when('/contact', { controller: 'susiApp.Controllers.HomeController', controllerAs: 'home', templateUrl: '/Home/ContactPartial' });
+
             $routeProvider.otherwise({ redirectTo: '/latest' });
         }
     }
