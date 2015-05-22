@@ -30,21 +30,14 @@ namespace ISSU.Web.Controllers
             return PartialView("_SUSI");
         }
 
-        public ActionResult AboutPartial()
+        public PartialViewResult AboutPartial()
         {
-            return View(currentUser);
+            return PartialView("_About");
         }
 
-        public async Task<ActionResult> CoursesPartial()
+        public PartialViewResult CoursesPartial()
         {
-            if(currentUser.CoursesUpdated == null)
-            {
-                CourseUpdater updater = new CourseUpdater(uow, currentUser);
-
-                await updater.UpdateCoursesAsync();
-                return View(await updater.UpdateCourseResultsAsync());
-            }
-            return View(currentUser.CourseResults.ToList());
+            return PartialView("_Courses");
         }
 
         private void GetCurrentUser()

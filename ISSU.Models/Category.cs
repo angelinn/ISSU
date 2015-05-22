@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ISSU.Models
@@ -23,6 +24,11 @@ namespace ISSU.Models
                 articles = value;
             }
         }
-        
+
+        public Category()
+        {
+            articles = new HashSet<Article>();
+        }
+
     }
 }

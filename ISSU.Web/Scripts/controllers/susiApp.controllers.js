@@ -49,7 +49,40 @@ var susiApp;
             return NewsController;
         })();
         Controllers.NewsController = NewsController;
-        angular.module('susiApp').controller('susiApp.Controllers.HomeController', HomeController).controller('susiApp.Controllers.NewsController', NewsController);
+        var SUSIUserController = (function () {
+            function SUSIUserController($scope, susiService) {
+                this.scope = $scope;
+                this.susiService = susiService;
+                this.getUserInfo();
+            }
+            SUSIUserController.prototype.getUserInfo = function () {
+                var _this = this;
+                this.susiService.getStudentInfo().then(function (data) {
+                    _this.scope['user'] = data;
+                });
+            };
+            SUSIUserController.$inject = ['$scope', 'susiApp.Services.SUSIService'];
+            return SUSIUserController;
+        })();
+        Controllers.SUSIUserController = SUSIUserController;
+        var SUSICoursesController = (function () {
+            function SUSICoursesController($scope, susiService) {
+                this.scope = $scope;
+                this.susiService = susiService;
+                this.getCourses();
+            }
+            SUSICoursesController.prototype.getCourses = function () {
+                var _this = this;
+                this.susiService.getCourses().then(function (data) {
+                    _this.scope['courses'] = data;
+                    console.log(data);
+                });
+            };
+            SUSICoursesController.$inject = ['$scope', 'susiApp.Services.SUSIService'];
+            return SUSICoursesController;
+        })();
+        Controllers.SUSICoursesController = SUSICoursesController;
+        angular.module('susiApp').controller('susiApp.Controllers.HomeController', HomeController).controller('susiApp.Controllers.NewsController', NewsController).controller('susiApp.Controllers.SUSIUserController', SUSIUserController).controller('susiApp.Controllers.SUSICoursesController', SUSICoursesController);
     })(Controllers = susiApp.Controllers || (susiApp.Controllers = {}));
 })(susiApp || (susiApp = {}));
 //# sourceMappingURL=susiApp.controllers.js.map

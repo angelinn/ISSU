@@ -9,7 +9,7 @@ namespace ISSU.Data
     {
         public ISSUContext() : base("ISSUDatabase")
         {
-            Configuration.ProxyCreationEnabled = false;
+            //Configuration.ProxyCreationEnabled = false;
         }
 
         public IDbSet<Website> Websites { get; set; }

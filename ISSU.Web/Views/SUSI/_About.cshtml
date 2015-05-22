@@ -1,37 +1,29 @@
-﻿@using ISSU.Models
-@model Student
-
-@{
-    ViewBag.Title = "За мен";
-}
-
-<hr/>
-
-<table class="table table-striped table-condensed">
+﻿<hr/>
+<table class="table table-striped table-condensed" ng-controller="susiApp.Controllers.SUSIUserController as susi">
     <tbody>
         <tr>
             <td class="col-md-3"><label> Име: </label></td>
-            <td> @String.Format("{0} {1} {2}", Model.FirstName, Model.MiddleName, Model.LastName) </td>
+            <td> {{ user.FirstName }} {{ user.MiddleName }} {{ user.LastName }} </td>
         </tr>
 
         <tr>
             <td class="col-md-3"><label> Факултетен номер: </label></td>
-            <td> @Model.FacultyNumber </td>
+            <td> {{ user.FacultyNumber }} </td>
         </tr>
 
         <tr>
             <td class="col-md-3"><label> Специалност: </label></td>
-            <td> @Model.Programme </td>
+            <td> {{ user.Programme }} </td>
         </tr>
 
         <tr>
             <td class="col-md-3"><label> Административна група: </label></td>
-            <td> #@Model.Group </td>
+            <td> #{{ user.Group }} </td>
         </tr>
 
         <tr>
             <td class="col-md-3"><label> Година: </label></td>
-            <td> @Model.Year </td>
+            <td> {{ user.Year }} </td>
         </tr>
     </tbody>
 </table>

@@ -78,7 +78,46 @@
         }
     }
 
+    export class SUSIService implements susiApp.Interfaces.ISUSIService {
+        httpService: ng.IHttpService;
+        qService: ng.IQService;
+
+        static $inject = ['$http', '$q'];
+
+        constructor($http: ng.IHttpService, $q: ng.IQService) {
+            this.httpService = $http;
+            this.qService = $q;
+        }
+
+        getStudentInfo(): ng.IPromise<susiApp.Models.IStudentViewModel> {
+            var defer = this.qService.defer<susiApp.Models.IStudentViewModel>();
+
+            this.httpService.get<susiApp.Models.IStudentViewModel>(
+                '/api/susi', {
+                    responseType: 'json'
+                }).then((response) => {
+                defer.resolve(response.data);
+            });
+
+            return defer.promise;
+        }
+
+        getCourses(): ng.IPromise<Array<susiApp.Models.ICourseResultViewModel>> {
+            var defer = this.qService.defer<Array<susiApp.Models.ICourseResultViewModel>>();
+
+            this.httpService.get<Array<susiApp.Models.ICourseResultViewModel>>(
+                'api/susi?courses', {
+                    responseType: 'json'
+                }).then((response) => {
+                defer.resolve(response.data);
+            });
+
+            return defer.promise;
+        }
+    }
+
     angular.module('susiApp')
         .service('susiApp.Services.HomeService', HomeService)
-        .service('susiApp.Services.NewsService', NewsService);
+        .service('susiApp.Services.NewsService', NewsService)
+        .service('susiApp.Services.SUSIService', SUSIService);
 } 

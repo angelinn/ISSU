@@ -22,9 +22,9 @@
     export class SUSIRoutes {
         static $inject = ['routeProvider'];
         static configureRoutes($routeProvider: ng.route.IRouteProvider) {
-            $routeProvider.when('/susi', { controller: 'susiApp.Controllers.SUSIController', controllerAs: 'susi', templateUrl: '/SUSI/SUSIPartial' });
-            $routeProvider.when('/student/about', { controller: 'susiApp.Controllers.SUSIController', controllerAs: 'susi', templateUrl: '/SUSI/AboutPartial' });
-            $routeProvider.when('/student/courses', { controller: 'susiApp.Controllers.SUSIController', controllerAs: 'susi', templateUrl: '/SUSI/CourseSPartial' });
+            $routeProvider.when('/susi', { templateUrl: '/SUSI/SUSIPartial' });
+            $routeProvider.when('/student/about', { controller: 'susiApp.Controllers.SUSIUserController', controllerAs: 'susi', templateUrl: '/SUSI/AboutPartial' });
+            $routeProvider.when('/student/courses', { controller: 'susiApp.Controllers.SUSICoursesController', controllerAs: 'susi', templateUrl: '/SUSI/CoursesPartial' });
         }
     }
 }

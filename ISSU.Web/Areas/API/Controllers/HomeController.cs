@@ -25,12 +25,12 @@ namespace ISSU.Web.Areas.API.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, new UnitOfWork().Websites.SelectAll().ToList());
             if (index == Status.Requested)
             {
-                List<Article> firstFew = new UnitOfWork().Articles
-                    .Where(a => a.ID < ARTICLES_PER_PAGE)
-                    .ToList();
+                var firstFew = new UnitOfWork().Articles
+                    .Where(a => a.ID < ARTICLES_PER_PAGE).ToList();
 
                 //var str = firstFew[0].Category.Name;
                 firstFew.Sort((a, b) => b.Created.Value.CompareTo(a.Created.Value));
+
                 return Request.CreateResponse(HttpStatusCode.OK, firstFew);
             }
             return Request.CreateResponse(HttpStatusCode.InternalServerError);

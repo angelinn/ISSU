@@ -10,4 +10,9 @@
         getFirstFew(): ng.IPromise<Array<susiApp.Models.IArticle>>;
         getArticle(id: number): ng.IPromise<susiApp.Models.IArticle>;
     }
+
+    export interface ISUSIService {
+        getStudentInfo(): ng.IPromise<susiApp.Models.IStudentViewModel>;
+        getCourses(): ng.IPromise<Array<susiApp.Models.ICourseResultViewModel>>;
+    }
 } 

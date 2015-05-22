@@ -58,8 +58,51 @@
         }
     }
 
+    export class SUSIUserController {
+        scope: ng.IScope;
+        susiService: susiApp.Interfaces.ISUSIService;
+
+        static $inject = ['$scope', 'susiApp.Services.SUSIService'];
+
+        constructor($scope: ng.IScope, susiService: susiApp.Interfaces.ISUSIService) {
+            this.scope = $scope;
+            this.susiService = susiService;
+            this.getUserInfo();
+        }
+
+        getUserInfo(): void {
+            this.susiService.getStudentInfo()
+                .then((data) => {
+                this.scope['user'] = data;
+            });
+        }
+    }
+
+    export class SUSICoursesController {
+        scope: ng.IScope;
+        susiService: susiApp.Interfaces.ISUSIService;
+
+        static $inject = ['$scope', 'susiApp.Services.SUSIService'];
+
+        constructor($scope: ng.IScope, susiService: susiApp.Interfaces.ISUSIService) {
+            this.scope = $scope;
+            this.susiService = susiService;
+            this.getCourses();
+        }
+
+        getCourses(): void {
+            this.susiService.getCourses()
+                .then((data) => {
+                this.scope['courses'] = data;
+                console.log(data);
+            });
+        }
+    }
+
 
     angular.module('susiApp')
         .controller('susiApp.Controllers.HomeController', HomeController)
-        .controller('susiApp.Controllers.NewsController', NewsController);
+        .controller('susiApp.Controllers.NewsController', NewsController)
+        .controller('susiApp.Controllers.SUSIUserController', SUSIUserController)
+        .controller('susiApp.Controllers.SUSICoursesController', SUSICoursesController);
 }

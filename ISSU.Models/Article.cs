@@ -5,21 +5,6 @@ namespace ISSU.Models
 {
     public class Article
     {
-        //public Article(Article other)
-        //{
-        //    ID = other.ID;
-        //    Title = other.Title;
-        //    ImageUrl = other.ImageUrl;
-        //    Content = other.Content;
-        //    ShortDescription = other.ShortDescription;
-        //    Created = other.Created;
-        //    StudentID = other.StudentID;
-        //    CategoryID = other.CategoryID;
-
-        //    //Student = new Student(other.Student);
-        //    //Category = new Category(other.Category);
-        //}
-
         public int ID { get; set; }
 
         [Required]

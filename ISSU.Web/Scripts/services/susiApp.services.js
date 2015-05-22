@@ -57,7 +57,34 @@ var susiApp;
             return NewsService;
         })();
         Services.NewsService = NewsService;
-        angular.module('susiApp').service('susiApp.Services.HomeService', HomeService).service('susiApp.Services.NewsService', NewsService);
+        var SUSIService = (function () {
+            function SUSIService($http, $q) {
+                this.httpService = $http;
+                this.qService = $q;
+            }
+            SUSIService.prototype.getStudentInfo = function () {
+                var defer = this.qService.defer();
+                this.httpService.get('/api/susi', {
+                    responseType: 'json'
+                }).then(function (response) {
+                    defer.resolve(response.data);
+                });
+                return defer.promise;
+            };
+            SUSIService.prototype.getCourses = function () {
+                var defer = this.qService.defer();
+                this.httpService.get('api/susi?courses', {
+                    responseType: 'json'
+                }).then(function (response) {
+                    defer.resolve(response.data);
+                });
+                return defer.promise;
+            };
+            SUSIService.$inject = ['$http', '$q'];
+            return SUSIService;
+        })();
+        Services.SUSIService = SUSIService;
+        angular.module('susiApp').service('susiApp.Services.HomeService', HomeService).service('susiApp.Services.NewsService', NewsService).service('susiApp.Services.SUSIService', SUSIService);
     })(Services = susiApp.Services || (susiApp.Services = {}));
 })(susiApp || (susiApp = {}));
 //# sourceMappingURL=susiApp.services.js.map
