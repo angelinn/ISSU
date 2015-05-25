@@ -34,7 +34,7 @@ var susiApp;
                 $routeProvider.when('/student/about', { controller: 'susiApp.Controllers.SUSIUserController', controllerAs: 'susi', templateUrl: '/SUSI/AboutPartial' });
                 $routeProvider.when('/student/courses', { controller: 'susiApp.Controllers.SUSICoursesController', controllerAs: 'susi', templateUrl: '/SUSI/CoursesPartial' });
             };
-            SUSIRoutes.$inject = ['routeProvider'];
+            SUSIRoutes.$inject = ['$routeProvider'];
             return SUSIRoutes;
         })();
         Routes.SUSIRoutes = SUSIRoutes;

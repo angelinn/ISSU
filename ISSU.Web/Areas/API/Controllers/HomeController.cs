@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Data.Entity;
 using System.ComponentModel;
+using ISSU.Web.Areas.API.Models;
 
 namespace ISSU.Web.Areas.API.Controllers
 {
@@ -28,10 +29,10 @@ namespace ISSU.Web.Areas.API.Controllers
                 var firstFew = new UnitOfWork().Articles
                     .Where(a => a.ID < ARTICLES_PER_PAGE).ToList();
 
-                //var str = firstFew[0].Category.Name;
-                firstFew.Sort((a, b) => b.Created.Value.CompareTo(a.Created.Value));
-
-                return Request.CreateResponse(HttpStatusCode.OK, firstFew);
+                List<ArticleViewModel> result = new List<ArticleViewModel>();
+                firstFew.ForEach(ar => result.Add(new ArticleViewModel(ar)));
+                result.Sort((a, b) => b.Created.Value.CompareTo(a.Created.Value));
+                return Request.CreateResponse(HttpStatusCode.OK, result);
             }
             return Request.CreateResponse(HttpStatusCode.InternalServerError);
         } 

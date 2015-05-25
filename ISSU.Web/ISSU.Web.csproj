@@ -180,6 +180,7 @@
     <Compile Include="Areas\API\Controllers\NewsController.cs" />
     <Compile Include="Areas\API\Controllers\SUSIController.cs" />
     <Compile Include="Areas\API\Models\APIArticle.cs" />
+    <Compile Include="Areas\API\Models\ArticleViewModel.cs" />
     <Compile Include="Areas\API\Models\CourseResultViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />

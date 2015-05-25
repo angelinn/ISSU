@@ -10,12 +10,12 @@
     <div ng-repeat="article in articles">
         <h2> {{ article.Title }} </h2>
         <p class="lead">
-            от nz
+            от {{ article.StudentName }}
         </p>
 
         <a ng-href="/Categories/{{ article.CategoryID }}">
             <div class="badge">
-                hue
+                {{ article.CategoryName }}
             </div>
         </a>
         <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.Created }}</p>

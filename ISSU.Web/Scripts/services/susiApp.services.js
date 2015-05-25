@@ -10,7 +10,7 @@ var susiApp;
             }
             HomeService.prototype.getArticles = function () {
                 var defer = this.qService.defer();
-                this.httpService.get('api/home?index=1', {
+                this.httpService.get('/api/home?index=1', {
                     responseType: 'json'
                 }).then(function (response) {
                     defer.resolve(response.data);
@@ -19,7 +19,7 @@ var susiApp;
             };
             HomeService.prototype.getWebsites = function () {
                 var defer = this.qService.defer();
-                this.httpService.get('api/home?websites=1', {
+                this.httpService.get('/api/home?websites=1', {
                     responseType: 'json'
                 }).then(function (response) {
                     defer.resolve(response.data);
@@ -46,7 +46,7 @@ var susiApp;
             };
             NewsService.prototype.getArticle = function (id) {
                 var defer = this.qService.defer();
-                this.httpService.get('api/article?id=' + id, {
+                this.httpService.get('/api/article?id=' + id, {
                     responseType: 'json'
                 }).then(function (response) {
                     defer.resolve(response.data);
@@ -73,7 +73,7 @@ var susiApp;
             };
             SUSIService.prototype.getCourses = function () {
                 var defer = this.qService.defer();
-                this.httpService.get('api/susi?courses', {
+                this.httpService.get('/api/susi?courses', {
                     responseType: 'json'
                 }).then(function (response) {
                     defer.resolve(response.data);

@@ -12,11 +12,11 @@
             this.qService = $q;
         }
 
-        getArticles(): ng.IPromise<Array<susiApp.Models.IArticle>> {
-            var defer = this.qService.defer<Array<susiApp.Models.IArticle>>();
+        getArticles(): ng.IPromise<Array<susiApp.Models.IArticleViewModel>> {
+            var defer = this.qService.defer<Array<susiApp.Models.IArticleViewModel>>();
             
-            this.httpService.get<Array<susiApp.Models.IArticle>>(
-                'api/home?index=1', {
+            this.httpService.get<Array<susiApp.Models.IArticleViewModel>>(
+                '/api/home?index=1', {
                     responseType: 'json'
                 }).then((response) => {
                 defer.resolve(response.data);
@@ -28,7 +28,7 @@
             var defer = this.qService.defer<Array<susiApp.Models.IWebsite>>();
 
             this.httpService.get<Array<susiApp.Models.IWebsite>>(
-                'api/home?websites=1', {
+                '/api/home?websites=1', {
                     responseType: 'json'
                 }).then((response) => {
                 defer.resolve(response.data);
@@ -39,8 +39,8 @@
     }
 
     export class NewsService implements susiApp.Interfaces.INewsService {
-        firstFew: Array<susiApp.Models.IArticle>;
-        article: susiApp.Models.IArticle;
+        firstFew: Array<susiApp.Models.IArticleViewModel>;
+        article: susiApp.Models.IArticleViewModel;
         httpService: ng.IHttpService;
         qService: ng.IQService;
 
@@ -51,10 +51,10 @@
             this.qService = $q;
         }
 
-        getFirstFew(): ng.IPromise<Array<susiApp.Models.IArticle>> {
-            var defer = this.qService.defer<Array<susiApp.Models.IArticle>>();
+        getFirstFew(): ng.IPromise<Array<susiApp.Models.IArticleViewModel>> {
+            var defer = this.qService.defer<Array<susiApp.Models.IArticleViewModel>>();
 
-            this.httpService.get<Array<susiApp.Models.IArticle>>(
+            this.httpService.get<Array<susiApp.Models.IArticleViewModel>>(
                 '/api/news', {
                     responseType: 'json'
                 }).then((response) => {
@@ -64,11 +64,11 @@
             return defer.promise;
         }
 
-        getArticle(id: number): ng.IPromise<susiApp.Models.IArticle> {
-            var defer = this.qService.defer<susiApp.Models.IArticle>();
+        getArticle(id: number): ng.IPromise<susiApp.Models.IArticleViewModel> {
+            var defer = this.qService.defer<susiApp.Models.IArticleViewModel>();
 
-            this.httpService.get<susiApp.Models.IArticle>(
-                'api/article?id=' + id, {
+            this.httpService.get<susiApp.Models.IArticleViewModel>(
+                '/api/article?id=' + id, {
                     responseType: 'json'
                 }).then((response) => {
                 defer.resolve(response.data);
@@ -106,7 +106,7 @@
             var defer = this.qService.defer<Array<susiApp.Models.ICourseResultViewModel>>();
 
             this.httpService.get<Array<susiApp.Models.ICourseResultViewModel>>(
-                'api/susi?courses', {
+                '/api/susi?courses', {
                     responseType: 'json'
                 }).then((response) => {
                 defer.resolve(response.data);

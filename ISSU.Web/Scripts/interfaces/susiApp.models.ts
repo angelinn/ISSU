@@ -6,7 +6,7 @@
         Url: string;
     }
 
-    export interface IArticle {
+    export interface IArticleViewModel {
         ID: number;
         Title: string;
         ImageUrl: string;
@@ -14,6 +14,8 @@
         ShortDescription: string;
         Created: Date;
         CategoryID: number;
+        CategoryName: string;
+        StudentName: string;
     }
 
     export interface ICourse {

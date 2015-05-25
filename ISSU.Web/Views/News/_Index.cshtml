@@ -2,12 +2,12 @@
     <h2> {{ article.Title }} </h2>
 
     <p class="lead">
-        от Someone @*@String.Format("{0} {1}", Model.Student.FirstName, Model.Student.LastName)*@
+        от {{ article.StudentName }}
     </p>
 
     <a ng-href="/Categories/{{ article.CategoryID }}">
         <div class="badge">
-            Category Name
+            {{ article.CategoryName }}
         </div>
     </a>
     <p><span class="glyphicon glyphicon-time"></span> Posted on {{ article.Create }}</p>

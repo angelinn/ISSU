@@ -1,27 +1,29 @@
-﻿<h2>Курсове</h2>
-<table class="table table-striped table-hover" ng-controller="susiApp.Controllers.SUSICoursesController">
-    <thead>
-        <tr>
-            <th> # </th>
-            <th> Курс </th>
-            <th> Избираем </th>
-            <th> Взет </th>
-            <th> Кредити </th>
-            <th> Оценка </th>
-        </tr>
-    </thead>
-    <tbody ng-repeat="c in courses"> 
-        <tr>
-            <td> {{ c.ID }} </td>
-            <td> {{ c.Course.Name }} </td>
-            <td> {{ c.IsElective }} </td>
+﻿<div ng-controller="susiApp.Controllers.SUSICoursesController">
+    <h2>Курсове</h2>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th> # </th>
+                <th> Курс </th>
+                <th> Избираем </th>
+                <th> Взет </th>
+                <th> Кредити </th>
+                <th> Оценка </th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="c in courses">
+            <tr>
+                <td> {{ c.ID }} </td>
+                <td> {{ c.Course.Name }} </td>
+                <td> {{ c.IsElective }} </td>
 
-            <td class="warning" ng-show="!(c.IsTaken && c.Grade == 0)"> {{ c.IsTaken }} </td>
-            <td class="danger" ng-show="!(c.IsTaken && c.Grade != 0)"> {{ c.IsTaken }} </td>
-            <td class="success" ng-show="c.IsTaken"> {{ c.IsTaken }} </td>
+                <td class="warning text-center" ng-show="!(c.IsTaken || c.Grade != 0)"> {{ c.IsTaken }} </td>
+                <td class="danger text-center" ng-show="!(c.IsTaken || c.Grade == 0)"> {{ c.IsTaken }} </td>
+                <td class="success text-center" ng-show="c.IsTaken"> {{ c.IsTaken }} </td>
 
-            <td> {{ c.Credits }} </td>
-            <td> {{ c.Grade }} </td>
-        </tr>
-    </tbody>
-</table>
+                <td class="text-center"> {{ c.Credits }} </td>
+                <td class="text-center"> {{ c.Grade }} </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

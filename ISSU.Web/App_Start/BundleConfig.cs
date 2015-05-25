@@ -35,9 +35,14 @@ namespace ISSU.Web
                 "~/Scripts/susiApp.routes.js",
                 "~/Scripts/susiApp.js",
                 "~/Scripts/interfaces/susiApp.interfaces.js",
-                "~/Scritps/interfaces/susiApp.models.js",
+                "~/Scripts/interfaces/susiApp.models.js",
                 "~/Scripts/services/susiApp.services.js",
                 "~/Scripts/controllers/susiApp.controllers.js"));
+
+            foreach (var bundle in bundles) 
+            {
+                bundle.Transforms.Clear();
+            }
         }
     }
 }

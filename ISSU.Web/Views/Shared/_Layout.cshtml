@@ -33,10 +33,12 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+
+    <div class="container body-contentent" id="body">
         @RenderBody()
     </div>
-    <div class="container body-content" ng-view>
+
+    <div class="container body-contentent" ng-view>
 
     </div>
 
@@ -52,5 +54,8 @@
     @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/susiApp")
     @RenderSection("scripts", required: false)
+    <script>
+        setTimeout(function () { $('center').html('') }, 1000);
+    </script>
 </body>
 </html>
