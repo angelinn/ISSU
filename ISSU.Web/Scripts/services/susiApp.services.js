@@ -84,6 +84,12 @@ var susiApp;
             return SUSIService;
         })();
         Services.SUSIService = SUSIService;
+        var AdminService = (function () {
+            function AdminService() {
+            }
+            return AdminService;
+        })();
+        Services.AdminService = AdminService;
         angular.module('susiApp').service('susiApp.Services.HomeService', HomeService).service('susiApp.Services.NewsService', NewsService).service('susiApp.Services.SUSIService', SUSIService);
     })(Services = susiApp.Services || (susiApp.Services = {}));
 })(susiApp || (susiApp = {}));

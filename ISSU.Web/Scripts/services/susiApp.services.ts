@@ -116,6 +116,10 @@
         }
     }
 
+    export class AdminService {
+
+    }
+
     angular.module('susiApp')
         .service('susiApp.Services.HomeService', HomeService)
         .service('susiApp.Services.NewsService', NewsService)

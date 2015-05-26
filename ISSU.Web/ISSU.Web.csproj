@@ -175,6 +175,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\API\APIAreaRegistration.cs" />
+    <Compile Include="Areas\API\Controllers\AccountController.cs" />
     <Compile Include="Areas\API\Controllers\ArticleController.cs" />
     <Compile Include="Areas\API\Controllers\HomeController.cs" />
     <Compile Include="Areas\API\Controllers\NewsController.cs" />
